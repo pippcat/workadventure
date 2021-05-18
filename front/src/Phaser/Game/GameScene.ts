@@ -91,6 +91,7 @@ import {touchScreenManager} from "../../Touch/TouchScreenManager";
 import {PinchManager} from "../UserInput/PinchManager";
 import {joystickBaseImg, joystickBaseKey, joystickThumbImg, joystickThumbKey} from "../Components/MobileJoystick";
 import {waScaleManager} from "../Services/WaScaleManager";
+import {peerStore} from "../../Stores/PeerStore";
 
 export interface GameSceneInitInterface {
     initPosition: PointInterface|null,
@@ -613,6 +614,7 @@ export class GameScene extends DirtyScene implements CenterListener {
 
             // When connection is performed, let's connect SimplePeer
             this.simplePeer = new SimplePeer(this.connection, !this.room.isPublic, this.playerName);
+            peerStore.connectToSimplePeer(this.simplePeer);
             this.GlobalMessageManager = new GlobalMessageManager(this.connection);
             userMessageManager.setReceiveBanListener(this.bannedUser.bind(this));
 
